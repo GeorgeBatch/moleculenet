@@ -32,6 +32,8 @@ Populate the data directory with the following files:
   ---- scripts
   |
   ---- environment.yml
+  |
+  ...
 ```
 
 Rename the csv files as follows:

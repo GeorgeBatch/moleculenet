@@ -1,0 +1,35 @@
+name: batch-msc
+channels:
+- conda-forge
+- oddt
+- rdkit    # also try conda-forge build
+- bioconda # only needed for more recent openbabel build
+- pytorch  # prefered for pytorch
+dependencies:
+- python >= 3.6
+- pip
+- joblib
+- cython # for gpytorch
+- docopt
+#### standard data manipulation
+- numpy
+- pandas
+#### ml libraries
+- scipy
+- scikit-learn
+- forestci      # confidence intervals for random forests
+- scikit-garden # Mondrian Forests
+- xgboost
+- pytorch::pytorch>=1.0 # needed for gpytorch
+- gpytorch      # gaussian processes
+#### biochemical toolkits
+- openbabel
+- oddt
+- rdkit::rdkit # try both rdkit and conda-forge versions
+#### for replicating figures
+- matplotlib
+- seaborn
+#### for using this env as a kernel in jupyterlab
+- jupyter
+- jupyterlab
+- nb_conda_kernels

@@ -31,6 +31,8 @@ Populate the data directory with the following files:
   |
   ---- scripts
   |
+  ---- results
+  |
   ---- environment.yml
   |
   ...

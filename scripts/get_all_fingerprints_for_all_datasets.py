@@ -13,10 +13,10 @@ for dataset in ['esol', 'freesolv', 'lipophilicity']:
         print(f'Working on {dataset} dataset, {smile_type} smile_type...')
 
         # load data
-        data = pd.read_csv(f'../data/{dataset}_{smile_type}_IdSmileTarget.csv', index_col=0)
+        data = pd.read_csv(f'../data/{dataset}_{smile_type}_IdSmilesTarget.csv', index_col=0)
 
         # get smile-strings and constract molecules from them
-        smiles = data['smile']
+        smiles = data['smiles']
         ms = [Chem.MolFromSmiles(smile) for smile in smiles]
 
         # get ecfp-4, ecfp-6 (with radii respectively 2 and 3)

@@ -65,15 +65,15 @@ We will need to get hold of IDs/Names, Smiles, and measured target values for al
 Run the following commands to get them in the `scripts` directory:
 
 ```
->>> python get_original_id_smile_target_lipophilicity.py 
->>> python get_original_id_smile_target_esol.py 
->>> python get_original_id_smile_target_freesolv.py 
+>>> python get_original_id_smiles_target_lipophilicity.py 
+>>> python get_original_id_smiles_target_esol.py 
+>>> python get_original_id_smiles_target_freesolv.py 
 ```
 
 The output files are in the `../data/` directory:
-- `esol_original_IdSmileTarget.csv`, `esol_original_extra_features.csv`
-- `freesolv_original_IdSmileTarget.csv`
-- `lipophilicity_original_IdSmileTarget.csv`
+- `esol_original_IdSmilesTarget.csv`, `esol_original_extra_features.csv`
+- `freesolv_original_IdSmilesTarget.csv`
+- `lipophilicity_original_IdSmilesTarget.csv`
 
 **Note:** data for ESOL dataset also contained extra features which we also saved here.
 

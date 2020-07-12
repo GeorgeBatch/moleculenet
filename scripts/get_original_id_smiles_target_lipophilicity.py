@@ -9,14 +9,13 @@ df = pd.read_csv(f'../data/{dataset}_original.csv')
 # Create a dataframe only with id, smile, target columns
 subset_df = df[['CMPD_CHEMBLID', 'smiles', 'exp']]
 columns_mapper = {'CMPD_CHEMBLID': 'id',
-                  'smiles': 'smile',
                   'exp': 'target'
                  }
 ready_df = subset_df.rename(columns=columns_mapper)
 
 
 # save file
-ready_df.to_csv(f'../data/{dataset}_original_IdSmileTarget.csv', index=False)
+ready_df.to_csv(f'../data/{dataset}_original_IdSmilesTarget.csv', index=False)
 
 
 
@@ -29,4 +28,4 @@ original_files = set(['esol_original.csv', 'freesolv_original.csv', 'lipophilici
 # check that we have not deleted original files
 assert original_files.issubset(present)
 # check that we produced the needed file
-assert f'{dataset}_original_IdSmileTarget.csv' in present
+assert f'{dataset}_original_IdSmilesTarget.csv' in present

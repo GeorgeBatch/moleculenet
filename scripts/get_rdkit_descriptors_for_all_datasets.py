@@ -1,6 +1,7 @@
 # Import modules
 import numpy as np
 import pandas as pd
+import time
 
 from rdkit import Chem
 from rdkit.Chem import AllChem
@@ -8,6 +9,9 @@ from rdkit.Chem import AllChem
 from rdkit import RDLogger
 from rdkit.Chem import Descriptors
 
+
+# record time to show after execution of the script
+since = time.time()
 
 # For each dataset*smile_typecombination get the rdkit features from smile strings
 for dataset in ['esol', 'freesolv', 'lipophilicity']:
@@ -44,3 +48,6 @@ for dataset in ['esol', 'freesolv', 'lipophilicity']:
         file_path = f'../data/{dataset}_{smile_type}_rdkit_features.csv'
         features.to_csv(file_path, index=True)
         print(f'Saved file to: {file_path}\n')
+
+time_elapsed = time.time() - since
+print(f'Task completed in {time_elapsed // 60:.0f}m {time_elapsed % 60:.0f}s \n')

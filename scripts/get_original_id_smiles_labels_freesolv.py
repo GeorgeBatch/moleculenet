@@ -2,20 +2,20 @@ import sys, os
 import pandas as pd
 
 # set the dataset name to be working with
-dataset = 'lipophilicity'
+dataset = 'freesolv'
 # load data
 df = pd.read_csv(f'../data/{dataset}_original.csv')
 
-# Create a dataframe only with id, smile, target columns
-subset_df = df[['CMPD_CHEMBLID', 'smiles', 'exp']]
-columns_mapper = {'CMPD_CHEMBLID': 'id',
-                  'exp': 'target'
+# Create a dataframe only with id, smile, label columns
+subset_df = df[['iupac', 'smiles', 'expt']]
+columns_mapper = {'iupac': 'id',
+                  'expt': 'labels'
                  }
 ready_df = subset_df.rename(columns=columns_mapper)
 
 
 # save file
-ready_df.to_csv(f'../data/{dataset}_original_IdSmilesTarget.csv', index=False)
+ready_df.to_csv(f'../data/{dataset}_original_IdSmilesLabels.csv', index=False)
 
 
 
@@ -28,4 +28,4 @@ original_files = set(['esol_original.csv', 'freesolv_original.csv', 'lipophilici
 # check that we have not deleted original files
 assert original_files.issubset(present)
 # check that we produced the needed file
-assert f'{dataset}_original_IdSmilesTarget.csv' in present
+assert f'{dataset}_original_IdSmilesLabels.csv' in present

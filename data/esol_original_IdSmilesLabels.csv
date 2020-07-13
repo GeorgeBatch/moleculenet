@@ -1,4 +1,4 @@
-id,smiles,target
+id,smiles,labels
 Amigdalin,OCC3OC(OCC2OC(OC(C#N)c1ccccc1)C(O)C(O)C2O)C(O)C(O)C3O ,-0.77
 Fenfuram,Cc1occc1C(=O)Nc2ccccc2,-3.3
 citral,CC(C)=CCCC(C)=CC(=O),-2.06

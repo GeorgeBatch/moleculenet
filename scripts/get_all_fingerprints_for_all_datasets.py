@@ -16,7 +16,7 @@ for dataset in ['esol', 'freesolv', 'lipophilicity']:
         print(f'Working on {dataset} dataset, {smile_type} smile_type...')
 
         # load data
-        data = pd.read_csv(f'../data/{dataset}_{smile_type}_IdSmilesTarget.csv', index_col=0)
+        data = pd.read_csv(f'../data/{dataset}_{smile_type}_IdSmilesLabels.csv', index_col=0)
 
         # get smile-strings and constract molecules from them
         smiles = data['smiles']

@@ -20,7 +20,7 @@ for dataset in ['esol', 'freesolv', 'lipophilicity']:
         print(f'Working on {dataset} dataset, {smile_type} smile_type...')
 
         ## Load Data
-        data = pd.read_csv(f'../data/{dataset}_{smile_type}_IdSmilesTarget.csv', index_col=0)
+        data = pd.read_csv(f'../data/{dataset}_{smile_type}_IdSmilesLabels.csv', index_col=0)
         smiles = data['smiles']
 
         ## Get RDKit Molecular descriptors

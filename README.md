@@ -34,8 +34,6 @@ Populate the data directory with the following files:
   ---- results
   |
   ---- environment.yml
-  |
-  ...
 ```
 
 Rename the csv files as follows:
@@ -60,20 +58,20 @@ Environment's name is `batch-msc`, and we activate it using:
 
 ## Standardise the file names and column names
 
-We will need to get hold of IDs/Names, Smiles, and measured target values for all 3 datasets. We will produce 3 csv files with the following coloumns to standardise the future work:
+We will need to get hold of IDs/Names, Smiles, and measured label values for all 3 datasets. We will produce 3 csv files with the following coloumns to standardise the future work:
 
 Run the following commands to get them in the `scripts` directory:
 
 ```
->>> python get_original_id_smiles_target_lipophilicity.py 
->>> python get_original_id_smiles_target_esol.py 
->>> python get_original_id_smiles_target_freesolv.py 
+>>> python get_original_id_smiles_labels_lipophilicity.py 
+>>> python get_original_id_smiles_labels_esol.py 
+>>> python get_original_id_smiles_labels_freesolv.py 
 ```
 
 The output files are in the `../data/` directory:
-- `esol_original_IdSmilesTarget.csv`, `esol_original_extra_features.csv`
-- `freesolv_original_IdSmilesTarget.csv`
-- `lipophilicity_original_IdSmilesTarget.csv`
+- `esol_original_IdSmilesLabels.csv`, `esol_original_extra_features.csv`
+- `freesolv_original_IdSmilesLabels.csv`
+- `lipophilicity_original_IdSmilesLabels.csv`
 
 **Note:** data for ESOL dataset also contained extra features which we also saved here.
 

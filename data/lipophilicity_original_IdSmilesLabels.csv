@@ -1,4 +1,4 @@
-id,smiles,target
+id,smiles,labels
 CHEMBL596271,Cn1c(CN2CCN(CC2)c3ccc(Cl)cc3)nc4ccccc14,3.54
 CHEMBL1951080,COc1cc(OC)c(cc1NC(=O)CSCC(=O)O)S(=O)(=O)N2C(C)CCc3ccccc23,-1.18
 CHEMBL1771,COC(=O)[C@@H](N1CCc2sccc2C1)c3ccccc3Cl,3.69

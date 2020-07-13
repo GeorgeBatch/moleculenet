@@ -1,4 +1,4 @@
-id,smiles,target
+id,smiles,labels
 "4-methoxy-N,N-dimethyl-benzamide",CN(C)C(=O)c1ccc(cc1)OC,-11.01
 methanesulfonyl chloride,CS(=O)(=O)Cl,-4.87
 3-methylbut-1-ene,CC(C)C=C,1.83

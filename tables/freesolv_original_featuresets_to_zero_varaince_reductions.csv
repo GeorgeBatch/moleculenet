@@ -1,0 +1,6 @@
+,Original features,Reduced features,Reduction
+RDKit,200,167,33
+1024ecfp-4,1024,849,175
+1024ecfp-6,1024,981,43
+2048ecfp-4,2048,1224,824
+2048ecfp-6,2048,1617,431

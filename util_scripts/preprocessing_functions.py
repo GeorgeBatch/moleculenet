@@ -2,6 +2,9 @@
 import numpy as np
 import pandas as pd
 
+# pearson correlation
+from scipy.stats import pearsonr
+
 
 def list_highly_correlated(df_features, targets, threshold=0.8):
     """

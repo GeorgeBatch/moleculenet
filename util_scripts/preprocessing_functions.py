@@ -9,7 +9,7 @@ from scipy.stats import pearsonr
 def list_highly_correlated(df_features, targets, threshold=0.8):
     """
     List column names of the dataframe of features which are highly correlated
-    to the target (absolute value of the correlation is greater than threshold).
+    to the target (absolute value of the correlation is greater than the threshold).
 
     Parameters
     ----------

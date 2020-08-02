@@ -11,12 +11,18 @@ def list_highly_correlated(df_features, targets, threshold=0.8):
     List column names of the dataframe of features which are highly correlated
     to the target (absolute value of the correlation is greater than threshold).
 
-    df_features: pandas.core.frame.DataFrame of features
-    targets: pandas.core.series.Series of targets
-    threshold: float in [0, 1] above which we consider a feature highly correlated
+    Parameters
+    ----------
+    df_features : (n, p) pandas.core.frame.DataFrame of p features
+                  Input array.
+    targets     : (n,) pandas.core.series.Series of targets
+                  Input array.
+    threshold   : float in [0, 1] above which we consider a feature highly correlated
 
-    returns: list of columns names from df_features, which are highly correlated
-             to the target
+    Returns
+    -------
+    cols_to_remove : list of columns names from df_features, which are highly correlated
+                     to the target
 
     """
     # check bounds for abs(correlation) threshold

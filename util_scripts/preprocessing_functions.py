@@ -21,7 +21,7 @@ def list_highly_correlated(df_features, targets, threshold=0.8):
 
     Returns
     -------
-    cols_to_remove : list of columns names from df_features, which are highly correlated
+    cols_to_remove : list of column names from df_features, which are highly correlated
                      to the target
 
     """

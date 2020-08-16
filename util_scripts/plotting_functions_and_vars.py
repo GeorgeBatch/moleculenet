@@ -4,6 +4,7 @@ import sys
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 # -----------------------------------------------------------------------------
 # Global variables to be used in scripts and notebooks
@@ -33,9 +34,26 @@ metrics_to_labels = {
 # -----------------------------------------------------------------------------
 # Global plotting options
 
-FIGSIZE = (6, 6)
-
 PLOTS_DIR = '../figures'
+
+FIGSIZE_CI = (6, 6)
+FIGSIZE_HEATMAP = (8, 6)
 
 # -----------------------------------------------------------------------------
 # Plotting functions
+
+def plot_algorithm_dataset_comparison_heatmap(df, dataset, metric):
+    fig, ax = plt.subplots(1,1, figsize=FIGSIZE_HEATMAP)
+
+    # heatmap
+    sns.heatmap(df, annot=True, cmap='viridis', fmt='.3g',
+                cbar_kws={'label': f"{metrics_to_labels[metric]} {datasets_to_units[dataset]}"},
+                ax=ax)
+
+    # horizontal lines to separate the heatmap
+    ax.hlines([1, 2, 3], *ax.get_xlim(), linestyle=':', linewidth=2)
+
+    # title and labels
+    ax.set_ylabel('Algorithm')
+    ax.set_xlabel('Features Used')
+    ax.set_title(datasets_to_titles[dataset])

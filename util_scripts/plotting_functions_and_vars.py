@@ -36,8 +36,9 @@ metrics_to_labels = {
 
 PLOTS_DIR = '../figures'
 
+DPI = 300
 FIGSIZE_CI = (6, 6)
-FIGSIZE_HEATMAP = (8, 6)
+FIGSIZE_HEATMAP = (8, 4)
 
 # -----------------------------------------------------------------------------
 # Plotting functions
@@ -56,6 +57,6 @@ def plot_algorithm_dataset_comparison_heatmap(df, dataset, metric, figsize=FIGSI
     # title and labels
     ax.set_ylabel('Algorithm')
     ax.set_xlabel('Features Used')
-    ax.set_title(datasets_to_titles[dataset])
+    # ax.set_title(datasets_to_titles[dataset])
 
     return fig, ax

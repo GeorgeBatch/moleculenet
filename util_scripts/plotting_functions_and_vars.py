@@ -57,3 +57,5 @@ def plot_algorithm_dataset_comparison_heatmap(df, dataset, metric):
     ax.set_ylabel('Algorithm')
     ax.set_xlabel('Features Used')
     ax.set_title(datasets_to_titles[dataset])
+
+    return fig, ax

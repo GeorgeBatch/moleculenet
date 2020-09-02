@@ -42,8 +42,8 @@ FIGSIZE_HEATMAP = (8, 6)
 # -----------------------------------------------------------------------------
 # Plotting functions
 
-def plot_algorithm_dataset_comparison_heatmap(df, dataset, metric):
-    fig, ax = plt.subplots(1,1, figsize=FIGSIZE_HEATMAP)
+def plot_algorithm_dataset_comparison_heatmap(df, dataset, metric, figsize=FIGSIZE_HEATMAP):
+    fig, ax = plt.subplots(1,1, figsize=figsize)
 
     # heatmap
     sns.heatmap(df, annot=True, cmap='viridis', fmt='.3g',

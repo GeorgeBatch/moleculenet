@@ -31,6 +31,12 @@ metrics_to_labels = {
     'pearson_r': 'Pearson correlation'
 }
 
+datasets_to_rounding_precision = {
+    'freesolv': 2,
+    'esol': 2,
+    'lipophilicity': 3
+}
+
 # -----------------------------------------------------------------------------
 # Global plotting options
 

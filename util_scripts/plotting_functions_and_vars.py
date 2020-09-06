@@ -43,7 +43,7 @@ datasets_to_rounding_precision = {
 PLOTS_DIR = '../figures'
 
 DPI = 300
-FIGSIZE_CI = (6, 6)
+FIGSIZE_CI = (4, 4)
 FIGSIZE_HEATMAP = (8, 4)
 
 # -----------------------------------------------------------------------------

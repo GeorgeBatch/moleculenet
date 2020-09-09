@@ -81,6 +81,20 @@ dataset_to_num_cis = {
 
 
 # ----------------------------------------------------------------------------
+# variables to save things while the loop runs
+#
+# one run
+one_run_correlations_p_values = {}
+# mult runs mean, std
+mult_runs_corr_rmse_percentile_pm_stds = {}
+mult_runs_rmse_pm_std = {}
+mult_runs_within95_pm_std = {}
+# mult runs, correlation of ci-width vs percentile with p-value
+mult_runs_corr_p_val_ciwidth_percentile = {}
+
+
+
+# ----------------------------------------------------------------------------
 # main loop
 
 for dataset, cf in [('freesolv', 'full'), ('esol', 'full'), ('esol', 'reduced'), ('lipophilicity', 'full')]:
@@ -89,6 +103,20 @@ for dataset, cf in [('freesolv', 'full'), ('esol', 'full'), ('esol', 'reduced'),
 
     # report precision
     rp = datasets_to_rounding_precision[dataset]
+
+    # for reocrding on all datasets
+    #
+    # one run
+    one_run_correlations_p_values[f'{dataset}_{cf}'] = {}
+    # mult runs mean, std
+    mult_runs_corr_rmse_percentile_pm_stds[f'{dataset}_{cf}'] = {}
+    mult_runs_rmse_pm_std[f'{dataset}_{cf}'] = {}
+    mult_runs_within95_pm_std[f'{dataset}_{cf}'] = {}
+    # mult runs, correlation of ci-width vs percentile with p-value
+    mult_runs_corr_p_val_ciwidth_percentile[f'{dataset}_{cf}'] = {}
+
+
+
 
     for model in ['rf', 'gp']:
         assert model in ['rf', 'gp']
@@ -171,6 +199,11 @@ for dataset, cf in [('freesolv', 'full'), ('esol', 'full'), ('esol', 'reduced'),
         plt.savefig(f'{PLOTS_DIR}/ci_plots/cumulrmse_vs_confidence_one_run_{dataset}_{cf}_{model}.png', dpi=DPI, bbox_inches='tight')
         plt.close()
 
+        # --------------------------------------------------------------------
+        # record one-run correlations and p-values
+        corr, p_val = pearsonr(confidence_percentiles, flipped_cumul_rmse)
+        one_run_correlations_p_values[f'{dataset}_{cf}'][model] = round(corr, 2), round(p_val, 5)
+
 
         # --------------------------------------------------------------------
         # multiple runs
@@ -241,6 +274,34 @@ for dataset, cf in [('freesolv', 'full'), ('esol', 'full'), ('esol', 'reduced'),
         flipped_cumulrmse_upper = flipped_cumulrmse_mean + 1.96*flipped_cumulrmse_sdt
 
 
+        ######################################################################
+
+        # --------------------------------------------------------------------
+        # correlation mean +/- std of cumulrmse vs percentile
+        corr_mean = np.mean(cumulrmse_vs_percentile_corr_mult_runs).round(3)
+        corr_std = np.std(cumulrmse_vs_percentile_corr_mult_runs).round(3)
+        mult_runs_corr_rmse_percentile_pm_stds[f'{dataset}_{cf}'][model] = f'{corr_mean} +/- {corr_std}'
+
+        # --------------------------------------------------------------------
+        # rmse mean +/- std
+        rmse_mean = np.mean(rmse_mult_runs).round(3)
+        rmse_std = np.std(rmse_mult_runs).round(3)
+        mult_runs_rmse_pm_std[f'{dataset}_{cf}'][model] = f'{rmse_mean} +/- {rmse_std}'
+
+
+        # --------------------------------------------------------------------
+        # within95 mean +/- std
+        within95_mean = np.mean(within_95_cis_mult_runs).round(3)
+        within95_std = np.std(within_95_cis_mult_runs).round(3)
+        mult_runs_within95_pm_std[f'{dataset}_{cf}'][model] = f'{within95_mean} +/- {within95_std}'
+
+        # --------------------------------------------------------------------
+        # correlation, and p-value of ci width against percentile
+        mult_runs_corr_p_val_ciwidth_percentile[f'{dataset}_{cf}'][model] = \
+            np.round(pearsonr(flipped_cumulrmse_sdt, confidence_percentiles), 3)
+
+        ######################################################################
+
         # --------------------------------------------------------------------
         # big plots together
 
@@ -270,3 +331,66 @@ for dataset, cf in [('freesolv', 'full'), ('esol', 'full'), ('esol', 'reduced'),
         plt.close()
 
         print()
+
+
+
+row_mapper = {
+    'freesolv_full': 'FreeSolv',
+    'esol_full': 'ESOL-full',
+    'esol_reduced': 'ESOL-reduced',
+    'lipophilicity_full': 'Lipophilicity'
+}
+
+row_order = ['FreeSolv', 'ESOL-full', 'ESOL-reduced', 'Lipophilicity']
+
+column_mapper = {
+    'rf': 'Random Forests',
+    'gp': 'Gaussian Processes'
+}
+
+row_order = ['FreeSolv', 'ESOL-full', 'ESOL-reduced', 'Lipophilicity']
+column_order  = ['Random Forests', 'Gaussian Processes']
+
+
+print("\nOne run correlations and p-values:")
+df = pd.DataFrame(one_run_correlations_p_values).T
+df = df.rename(mapper=row_mapper, axis='index')
+df = df.rename(mapper=column_mapper, axis='columns')
+df = df.loc[row_order, column_order]
+print(df)
+df.to_csv('../ci_comparison_tables/one_run_correlations_p_values.csv', index=True)
+
+print("\ncorrelation mean +/- std of cumulrmse vs percentile:")
+df = pd.DataFrame(mult_runs_corr_rmse_percentile_pm_stds).T
+df = df.rename(mapper=row_mapper, axis='index')
+df = df.rename(mapper=column_mapper, axis='columns')
+df = df.loc[row_order, column_order]
+print(df)
+df.to_csv('../ci_comparison_tables/mult_runs_corr_rmse_percentile_pm_stds.csv', index=True)
+
+
+print("\nrmse mean +/- std:")
+df = pd.DataFrame(mult_runs_rmse_pm_std).T
+df = df.rename(mapper=row_mapper, axis='index')
+df = df.rename(mapper=column_mapper, axis='columns')
+df = df.loc[row_order, column_order]
+df = df.loc[row_order, column_order]
+print(df)
+df.to_csv('../ci_comparison_tables/mult_runs_total_rmse_pm_std.csv', index=True)
+
+
+print("\nwithin95 mean +/- std:")
+df = pd.DataFrame(mult_runs_within95_pm_std).T
+df = df.rename(mapper=row_mapper, axis='index')
+df = df.rename(mapper=column_mapper, axis='columns')
+df = df.loc[row_order, column_order]
+print(df)
+df.to_csv('../ci_comparison_tables/mult_runs_within95_pm_std.csv', index=True)
+
+print("\ncorrelation, and p-value of ci width against percentile:")
+df = pd.DataFrame(mult_runs_corr_p_val_ciwidth_percentile).T
+df = df.rename(mapper=row_mapper, axis='index')
+df = df.rename(mapper=column_mapper, axis='columns')
+df = df.loc[row_order, column_order]
+print(df)
+df.to_csv('../ci_comparison_tables/mult_runs_corr_p_val_ciwidth_percentile.csv', index=True)

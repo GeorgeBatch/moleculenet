@@ -1,0 +1,5 @@
+,Random Forests,Gaussian Processes
+FreeSolv,[-0.332  0.   ],[-0.96  0.  ]
+ESOL-full,[0.228 0.001],[-0.98  0.  ]
+ESOL-reduced,[0.45 0.  ],[-0.98  0.  ]
+Lipophilicity,[0.726 0.   ],[-0.991  0.   ]

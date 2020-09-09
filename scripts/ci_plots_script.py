@@ -297,8 +297,10 @@ for dataset, cf in [('freesolv', 'full'), ('esol', 'full'), ('esol', 'reduced'),
 
         # --------------------------------------------------------------------
         # correlation, and p-value of ci width against percentile
-        mult_runs_corr_p_val_ciwidth_percentile[f'{dataset}_{cf}'][model] = \
-            np.round(pearsonr(flipped_cumulrmse_sdt, confidence_percentiles), 3)
+        corr, p_val = pearsonr(flipped_cumulrmse_sdt, confidence_percentiles)
+        corr = round(corr, 3)
+        p_val = round(p_val, 5)
+        mult_runs_corr_p_val_ciwidth_percentile[f'{dataset}_{cf}'][model] = [corr, p_val]
 
         ######################################################################
 

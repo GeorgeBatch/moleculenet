@@ -11,7 +11,7 @@ import seaborn as sns
 
 # titles (everywhere)
 datasets_to_titles = {
-    'freesolv': 'solvation energy'.title(),
+    'freesolv': 'solvation free energy'.title(),
     'esol': 'log solubility'.title(),
     'lipophilicity': 'octanol/water distribution coefficient'.title()
 }
@@ -19,7 +19,7 @@ datasets_to_titles = {
 # units (CIs)
 datasets_to_units = {
     'freesolv': '(kcal/mol)',
-    'esol': '(mol/litre)',
+    'esol': '', # no units since on log-scale'(mol/litre)',
     'lipophilicity': '(logD)'
 }
 

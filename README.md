@@ -38,9 +38,9 @@ Populate the data directory with the following files:
 
 Rename the csv files as follows:
 
-- `SAMPL.csv` $\to$ `freesolv_original.csv`
-- `delaney-processed.csv` $\to$ `esol_original.csv`
-- `Lipophilicity.csv` $\to$ `lipophilicity_original.csv`
+- `SAMPL.csv` to `freesolv_original.csv`
+- `delaney-processed.csv` to `esol_original.csv`
+- `Lipophilicity.csv` to `lipophilicity_original.csv`
 
 ## Environment
 

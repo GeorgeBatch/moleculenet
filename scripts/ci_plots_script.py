@@ -83,8 +83,11 @@ dataset_to_num_cis = {
 # ----------------------------------------------------------------------------
 # variables to save things while the loop runs
 #
+
+
 # one run
 one_run_correlations_p_values = {}
+one_run_correlations_prediction_vs_responce = {}
 # mult runs mean, std
 mult_runs_corr_rmse_percentile_pm_stds = {}
 mult_runs_rmse_pm_std = {}
@@ -108,6 +111,7 @@ for dataset, cf in [('freesolv', 'full'), ('esol', 'full'), ('esol', 'reduced'),
     #
     # one run
     one_run_correlations_p_values[f'{dataset}_{cf}'] = {}
+    one_run_correlations_prediction_vs_responce[f'{dataset}_{cf}'] = {}
     # mult runs mean, std
     mult_runs_corr_rmse_percentile_pm_stds[f'{dataset}_{cf}'] = {}
     mult_runs_rmse_pm_std[f'{dataset}_{cf}'] = {}
@@ -138,6 +142,10 @@ for dataset, cf in [('freesolv', 'full'), ('esol', 'full'), ('esol', 'reduced'),
         y_test = df_true.iloc[:, 0]
         y_test_pred = df_pred.iloc[:, 0]
         y_test_std = df_std.iloc[:, 0]
+
+        # model performance assessment
+        corr, p_val = pearsonr(y_test, y_test_pred)
+        one_run_correlations_prediction_vs_responce[f'{dataset}_{cf}'][model] = round(corr, 2), round(p_val, 5)
 
         # calculate everything
         upper = y_test_pred + 1.96 * y_test_std
@@ -352,6 +360,14 @@ column_mapper = {
 
 row_order = ['FreeSolv', 'ESOL-full', 'ESOL-reduced', 'Lipophilicity']
 column_order  = ['Random Forests', 'Gaussian Processes']
+
+
+print("\nOne run predictions vs responce correlations, p-values:")
+df = pd.DataFrame(one_run_correlations_prediction_vs_responce).T
+df = df.rename(mapper=row_mapper, axis='index')
+df = df.rename(mapper=column_mapper, axis='columns')
+df = df.loc[row_order, column_order]
+print(df)
 
 
 print("\nOne run correlations and p-values:")

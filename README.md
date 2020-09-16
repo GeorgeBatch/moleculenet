@@ -8,7 +8,12 @@
 **Institution:** University of Oxford
 **Department:** Department of Statistics, 24-29 St Giles', Oxford, OX1 3LB
 **Project's dates:** June 1st, 2020 - September 14th, 2020
+<<<<<<< HEAD
 **Data:** MoleculeNet, Physical Chemistry Datasets (http://moleculenet.ai/datasets-1)
+=======
+**Data:** MoleculeNet, Physical Chemistry Datasets
+(http://moleculenet.ai/datasets-1)
+>>>>>>> a27b8ce2319b727dc5927ec30359cc849e9351a5
 **Project's GitHub repository:** https://github.com/GeorgeBatch/moleculenet
 
 ----

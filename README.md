@@ -1,24 +1,51 @@
-<a href="https://colab.research.google.com/github/GeorgeBatch/learning-ligand/blob/master/readme.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+# Estimating Uncertainty in Machine Learning Models for Drug Discovery
 
-# Physical Chemistry datasets
+A dissertation submitted in partial fulfilment of the degree of Master of Science in Statistical Science. Department of Statistics, 24--29 St Giles', Oxford, OX1 3LB.
+----
 
-This repository aims to show the process of exploring how varying **feature sets**, **train-validation-test splits**, and **models** changes the prediction performance on the regression tasks for [Physical Chemistry datasets](http://moleculenet.ai/datasets-1).
+This repository contains all code, results, and plots I produced while completing my MSc dissertation. The pdf file with the full dissertation will be uploaded after it gets marked and I officially complete my degree.
+
+## Abstract
+
+"*My model says that I had just found an ultimate drug. Can I trust it?*"
+
+In this work, I explore ways of quantifying the confidence of machine learning models used in drug discovery. In order to do this, I start with exploring methods to predict physicochemical properties of drugs and drug-like molecules crucial to drug discovery. I first attempt to reproduce and improve upon a subset of results to do with a drug's solubility in water, taken from a popular benchmark set called "MoleculeNet". Using XGBoost, which in the era of Deep Neural Networks, is already classified as a "conventional" machine learning method, I show that I am able to achieve state-of-the-art results. After that, I explore Gaussian Processes and Infinitesimal Jackknife for Random Forests and their associated uncertainty estimates. Finally, I attempt to understand whether the confidence of a model's prediction can be used to answer a similar but more general question: "*How do we know when to trust our models?*" The answer depends on the model. We can trust Gaussian Processes when they are confident, but the confidence estimates from Random Forests do not give us any assurance.
+
+## Data
+
+Physical Chemistry Datasets from [MoleculeNet Benchmark Dataset Collection](http://moleculenet.ai/datasets-1).
+
+## Models
+
+
+## Obtaining Confidence Intervals
+
+
 
 # Set-up
 
-To make the reproduction process as simple as possible, clone this repository (`moleculenet`) to your local machine.
+This section outlines the set-up steps needed to start reproducing my results. It covers the following stages:
+
+1. Directory set-up;
+2. Creating an environment with [conda](https://docs.conda.io/en/latest/);
+3. Data preparation; and
+4. Creation of features.
 
 ## Directory
 
-Choose a directory, where you will store the data and the code to reproduce the results. Organize the directory in it as shown below.
+This section tells how to set up your directory via `git clone` or manually.
 
-All the files in the `data` folder are either downloaded from the [Moleculenet web page](http://moleculenet.ai/). You can download the data from the [datasets page](http://moleculenet.ai/datasets-1).
+### Git clone
 
-Populate the data directory with the following files:
+To make the reproduction process as simple as possible, clone this repository to your local machine. To do this, run the following command in your terminal/command prompt:
 
-- from the FreeSolv folder: `SAMPL.csv`, `FreeSolv_README`
-- from the ESOL folder: `delaney-processed.csv`, `ESOL_README`
-- from the lipophilicity folder: `Lipophilicity.csv`, `Lipo_README`
+```
+>>> git clone https://github.com/GeorgeBatch/moleculenet.git
+```
+
+### Manual directory set-up
+
+If you decided not to clone the repository from GitHub but still want to reproduce the results, choose a directory, where you will store the data and code. Organise your directory as shown below.
 
 ```
 - moleculenet
@@ -36,7 +63,15 @@ Populate the data directory with the following files:
   ---- environment.yml
 ```
 
-Rename the csv files as follows:
+**Download** the Physical Chemistry datasets from the [MoleculeNet datasets page](http://moleculenet.ai/datasets-1).
+
+Populate the `~/data/` directory with these six files:
+
+- from the FreeSolv folder: `SAMPL.csv`, `FreeSolv_README`
+- from the ESOL folder: `delaney-processed.csv`, `ESOL_README`
+- from the lipophilicity folder: `Lipophilicity.csv`, `Lipo_README`
+
+**Rename** the CSV files as follows:
 
 - `SAMPL.csv` to `freesolv_original.csv`
 - `delaney-processed.csv` to `esol_original.csv`
@@ -44,7 +79,8 @@ Rename the csv files as follows:
 
 ## Environment
 
-In the `moleculenet` directory create project envoronment from the environment.yml file using:
+In the root (`moleculenet`) directory create a project environment from the `environment.yml` file using:
+
 ```
 >>> conda env create -f environment.yml
 ```
@@ -54,43 +90,46 @@ Environment's name is `batch-msc`, and we activate it using:
 >>> conda activate batch-msc
 ```
 
-# Data preparation
+Conda environments make managing Python library dependences and reproducing research much easier. Another reason why we use conda us that some package, *e.g.* RDKit: Open-Source Cheminformatics Software, are not available via `pip install`.
 
-## Standardise the file names and column names
+## Data preparation
 
-We will need to get hold of IDs/Names, Smiles, and measured label values for all 3 datasets. We will produce 3 csv files with the following coloumns to standardise the future work:
+### Standardise Names
 
-Run the following commands to get them in the `scripts` directory:
+To automate the process of working with three different datasets we standardise their file names and column names.
+
+We need to get hold of IDs/Names, SMILES, and measured label values for all three datasets. We produce three CSV files with the following columns.
+
+Run the following commands to get them in the `~/scripts/` directory:
 
 ```
->>> python get_original_id_smiles_labels_lipophilicity.py 
->>> python get_original_id_smiles_labels_esol.py 
->>> python get_original_id_smiles_labels_freesolv.py 
+>>> python get_original_id_smiles_labels_lipophilicity.py
+>>> python get_original_id_smiles_labels_esol.py
+>>> python get_original_id_smiles_labels_freesolv.py
 ```
 
-The output files are in the `../data/` directory:
+The output files are in the `~/data/` directory:
 - `esol_original_IdSmilesLabels.csv`, `esol_original_extra_features.csv`
 - `freesolv_original_IdSmilesLabels.csv`
 - `lipophilicity_original_IdSmilesLabels.csv`
 
 **Note:** data for ESOL dataset also contained extra features which we also saved here.
 
-## Create .csv files with ECFP-4, ECFP-6 fingerprints for all datasets*smile-string combinations
+### Compute and Store Features
 
-We produce the files with ECFP-4, ECFP-6 fingerprints for all datasets*smile-string combinations. We do it once and never worry anout it in the future.
+Here we show how to produce the features and store them in .csv files with four different versions of extended-connectivity fingerprints ({ECFP_4, ECFP_6} * {1024 bits, 2048 bits}) and RDKit molecular descriptors for all datasets.
 
-Run the following command `scripts` directory:
+We compute the extended-connectivity fingerprints to use them as features from the SMILES string representations of the molecules from all three datasets at the very beginning and never worry about it in the future.
+
+To compute and record the features run the corresponding commands in the `scripts` directory:
+
+#### ECFP features
 ```
 >>> python get_all_fingerprints_for_all_datasets.py
 ```
 
-## Create .csv files with RDKit molecular descriptors for all datasets*smile-string combinations
+#### RDKit features
 
-We produce the files with ECFP-4, ECFP-6 fingerprints for all datasets*smile-string combinations. We do it once and never worry anout it in the future.
-
-Run the following command `scripts` directory:
 ```
 >>> python get_rdkit_descriptors_for_all_datasets.py
 ```
-
-

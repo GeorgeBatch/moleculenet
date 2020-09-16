@@ -175,7 +175,7 @@ From the SMILES string representations of the molecules for all three datasets c
 - ECFP_4 hashed with 2048 bits
 - ECFP_6 hashed with 2048 bits
 
-To compute and record the features run the corresponding commands in the `scripts` directory:
+To compute and record the features run the corresponding commands in the `~/scripts/` directory:
 
 #### ECFP features
 ```

@@ -13,9 +13,12 @@ In this work, I explore ways of quantifying the confidence of machine learning m
 
 ## Data
 
-Physical Chemistry Datasets from [MoleculeNet Benchmark Dataset Collection](http://moleculenet.ai/datasets-1).
+I used the [MoleculeNet dataset](http://moleculenet.ai/datasets-1) which accompanies the [MoleculeNet benchmarking paper](https://pubs.rsc.org/en/content/articlelanding/2018/sc/c7sc02664a#!divAbstract), and in particular, I focused on the Physical Chemistry datasets: [ESOL](https://pubs.acs.org/doi/10.1021/ci034243x), [FreeSolv](https://link.springer.com/article/10.1007/s10822-014-9747-x), and [Lipophilicity](https://onlinelibrary.wiley.com/doi/abs/10.1002/cem.2718). The MoleculeNet datasets are widely used to validate machine learning models used to estimate a particular property directly from small molecules including drug-like compounds.
+
+The Physical Chemistry datasets can be downloaded from [MoleculeNet benchmark dataset collection](http://moleculenet.ai/datasets-1).
 
 ## Models
+
 
 
 ## Obtaining Confidence Intervals

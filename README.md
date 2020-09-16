@@ -34,9 +34,9 @@ This work is mostly based of four papers:
 
 In this dissertation I aim to achieve three primary goals:
 
-1. Reproduce a subset of solubility-related prediction results from the MoleculeNet benchmarking paper;
-2. Improve upon the reproduced results; and
-3. Use uncertainty estimation methods with the best-performing models to get single prediction uncertainty estimates to evaluate and compare these methods.
+1. **Reproduce** a subset of solubility-related prediction results from the MoleculeNet benchmarking paper;
+2. **Improve** upon the reproduced results; and
+3. Use **uncertainty estimation** methods with the best-performing models to get single prediction uncertainty estimates to evaluate and compare these methods.
 
 ## Data
 
@@ -55,7 +55,7 @@ I use the following four models for the regression task of physicochemical prope
 
 ## Obtaining Confidence Intervals
 
-I obtaing per-prediction confidence intervals with:
+I obtained per-prediction confidence intervals with:
 
 - Gaussian Processes ([notes, chapter 7, section 7.2](https://github.com/ywteh/advml2020/blob/master/notes.pdf))
 - Bias-corrected Infinitesimal Jackknife estimate for Random Forests ([paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4286302/))
@@ -64,11 +64,11 @@ I obtaing per-prediction confidence intervals with:
 
 All the data preparation, experiments, and visualisations were done in Python.
 
-To convert molecules from their [SMILES](https://pubs.acs.org/doi/abs/10.1021/ci00057a005) string representations to either Molecular Descriptors or [Extended-Connectivity Fingerprints](https://pubs.acs.org/doi/10.1021/ci100050t), I used the open-source cheminformatics software, [RDKit](https://www.rdkit.org/).
+To convert molecules from their [SMILES](https://pubs.acs.org/doi/abs/10.1021/ci00057a005) string representations to either Molecular Descriptors or [Extended-Connectivity Fingerprints](https://pubs.acs.org/doi/10.1021/ci100050t), I used the open-source cheminformatics software, [RDKit](https://www.rdkit.org/) ([GitHub](https://github.com/rdkit/rdkit)).
 
-[Wu *et al.*](https://pubs.rsc.org/en/content/articlelanding/2018/SC/C7SC02664A#!divAbstract) suggest to use their Python library, [DeepChem](https://www.deepchem.io/), to reproduce the results. We decided not to use it, since the user API only gives high-level access to the user, while I wanted to have more control of the implementation. To have comparable results, I decided to use the tools which the DeepChem library is built on.
+[Wu *et al.*](https://pubs.rsc.org/en/content/articlelanding/2018/SC/C7SC02664A#!divAbstract) suggest to use their Python library, [DeepChem](https://www.deepchem.io/) ([GitHub](https://github.com/deepchem/deepchem)), to reproduce the results. We decided not to use it, since the user API only gives high-level access to the user, while I wanted to have more control of the implementation. To have comparable results, I decided to use the tools which the DeepChem library is built on.
 
-For most of the machine learning pipeline, I used Scikit-Learn ([article](https://www.jmlr.org/papers/v12/pedregosa11a.html), [GitHub](https://github.com/scikit-learn/scikit-learn)) for preprocessing, splitting, modelling, prediction, and validation. To obtain the confidence intervals for Random Forests, I used the forestci ([article](https://joss.theoj.org/papers/10.21105/joss.00124), [GitHub](https://github.com/scikit-learn-contrib/forest-confidence-interval)) extension for Scikit-Learn. The implementation of a custom Tanimoto (Jaccard) kernel for Gaussian Process Regression and all the following GP experiments were performed with [GPflow (article](http://jmlr.org/papers/v18/16-537.html), [GitHub)](https://github.com/GPflow/GPflow).
+For most of the machine learning pipeline, I used [Scikit-Learn](https://www.jmlr.org/papers/v12/pedregosa11a.html) ([GitHub](https://github.com/scikit-learn/scikit-learn)) for preprocessing, splitting, modelling, prediction, and validation. To obtain the confidence intervals for Random Forests, I used the [forestci](https://joss.theoj.org/papers/10.21105/joss.00124) ([GitHub](https://github.com/scikit-learn-contrib/forest-confidence-interval)) extension for Scikit-Learn. The implementation of a custom Tanimoto (Jaccard) kernel for Gaussian Process Regression and all the following GP experiments were performed with [GPflow](http://jmlr.org/papers/v18/16-537.html) ([GitHub](https://github.com/GPflow/GPflow)).
 
 # Set-up
 

@@ -27,7 +27,7 @@ The Physical Chemistry datasets can be downloaded from [MoleculeNet benchmark da
 
 # Set-up
 
-This section outlines the set-up steps needed to start reproducing my results. It covers the following stages:
+In this section I outline the set-up steps required to start reproducing my results. It covers the following stages:
 
 1. Directory set-up;
 2. Creating an environment with [conda](https://docs.conda.io/en/latest/);
@@ -48,7 +48,7 @@ To make the reproduction process as simple as possible, clone this repository to
 
 ### Manual directory set-up
 
-If you decided not to clone the repository from GitHub but still want to reproduce the results, choose a directory, where you will store the data and code. Organise your directory as shown below.
+If you decided not to clone the repository from GitHub but still want to reproduce the results, choose a directory, where you will store the data and code. Organise your directory as follows:
 
 ```
 - moleculenet
@@ -93,17 +93,17 @@ Environment's name is `batch-msc`, and we activate it using:
 >>> conda activate batch-msc
 ```
 
-Conda environments make managing Python library dependences and reproducing research much easier. Another reason why we use conda us that some package, *e.g.* RDKit: Open-Source Cheminformatics Software, are not available via `pip install`.
+[Conda](https://docs.conda.io/en/latest/) environments make managing Python library dependences and reproducing research much easier. Another reason why we use conda us that some packages, *e.g.* RDKit: Open-Source Cheminformatics Software, are not available via `pip install`.
 
 ## Data preparation
 
+This section covers two data preparation stages: standardising input files and producing the features.
+
 ### Standardise Names
 
-To automate the process of working with three different datasets we standardise their file names and column names.
+To automate the process of working with three different datasets (ESOL, FreeSolv, and Lipiphilicity) we standardise the column names from the original CSV files and store the results in the new CSV files.
 
-We need to get hold of IDs/Names, SMILES, and measured label values for all three datasets. We produce three CSV files with the following columns.
-
-Run the following commands to get them in the `~/scripts/` directory:
+We need to get hold of ID/Name, SMILES string representation, and measured label value for each of the compounds in all of the three datasets. To do this, run the following commands in the `~/scripts/` directory:
 
 ```
 >>> python get_original_id_smiles_labels_lipophilicity.py
@@ -111,18 +111,24 @@ Run the following commands to get them in the `~/scripts/` directory:
 >>> python get_original_id_smiles_labels_freesolv.py
 ```
 
-The output files are in the `~/data/` directory:
+The resulting files are saved in the `~/data/` directory:
 - `esol_original_IdSmilesLabels.csv`, `esol_original_extra_features.csv`
 - `freesolv_original_IdSmilesLabels.csv`
 - `lipophilicity_original_IdSmilesLabels.csv`
 
-**Note:** data for ESOL dataset also contained extra features which we also saved here.
+**Note:** the original file for the ESOL dataset also contained extra features which we also saved here.
 
 ### Compute and Store Features
 
-Here we show how to produce the features and store them in .csv files with four different versions of extended-connectivity fingerprints ({ECFP_4, ECFP_6} * {1024 bits, 2048 bits}) and RDKit molecular descriptors for all datasets.
+We show how to produce the features and store them in CSV files.
 
-We compute the extended-connectivity fingerprints to use them as features from the SMILES string representations of the molecules from all three datasets at the very beginning and never worry about it in the future.
+From the SMILES string representations of the molecules for all three datasets compute Extended-Connectivity Fingerprints and RDKit Molecular Descriptors to use them as features. We do it at the very beginning and never worry about it in the future.
+
+**Note**, we produce four different versions of extended-connectivity fingerprints:
+- ECFP_4 hashed with 1024 bits
+- ECFP_6 hashed with 1024 bits
+- ECFP_4 hashed with 2048 bits
+- ECFP_6 hashed with 2048 bits
 
 To compute and record the features run the corresponding commands in the `scripts` directory:
 

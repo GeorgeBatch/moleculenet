@@ -1,6 +1,17 @@
 # Estimating Uncertainty in Machine Learning Models for Drug Discovery
 
-A dissertation submitted in partial fulfilment of the degree of Master of Science in Statistical Science. Department of Statistics, 24--29 St Giles', Oxford, OX1 3LB.
+## Project Details:
+**Title:** Estimating Uncertainty in Machine Learning Models for Drug Discovery
+**Purpose:** MSc dissertation
+**Author:** George Batchkala, george.batchkala@gmail.com
+**Supervisor:** Professor Garrett M. Morris, garrett.morris@dtc.ox.ac.uk
+**Institution:** University of Oxford
+**Department:** Department of Statistics, 24-29 St Giles', Oxford, OX1 3LB
+**Project's dates:** June 1st, 2020 - September 14th, 2020
+**Data:** MoleculeNet, Physical Chemistry Datasets
+http://moleculenet.ai/datasets-1
+**Project's GitHub repository:** https://github.com/GeorgeBatch/moleculenet
+
 ----
 
 This repository contains all code, results, and plots I produced while completing my MSc dissertation. The pdf file with the full dissertation will be uploaded after it gets marked and I officially complete my degree.

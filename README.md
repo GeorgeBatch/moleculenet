@@ -4,7 +4,7 @@
 
 - **Title:** Estimating Uncertainty in Machine Learning Models for Drug Discovery
 - **Type:** MSc dissertation
-- **Author:** George Batchkala, george.batchkala@eng.ox.ac.uk
+- **Author:** George Batchkala, https://www.linkedin.com/in/george-batchkala/
 - **Supervisor:** Professor Garrett M. Morris, garrett.morris@dtc.ox.ac.uk
 - **Institution:** University of Oxford
 - **Department:** Department of Statistics, 24-29 St Giles', Oxford, OX1 3LB
